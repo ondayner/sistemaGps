@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title id="site-title">Cargando...</title>
+
+  <script src="../../../js/config/config.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="../../../css/style.css">
+</head>
+<body class="bg-slate-950 text-slate-100 flex h-screen transition-colors">
+  
+  <div id="app-aside"></div>
+
+  <div class="flex-1 flex flex-col min-w-0 overflow-hidden">
+
+    <main class="flex-1 overflow-y-auto p-4 md:p-6 flex flex-col gap-4 bg-slate-950/40">
+      
+      <!-- Panel de Fechas y Actualización -->
+      <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4 shadow-lg flex flex-wrap items-center justify-between gap-4">
+        <div class="flex flex-wrap items-center gap-4 text-xs">
+          <div class="flex items-center gap-2">
+            <span class="text-slate-400 font-semibold">Desde :</span>
+            <input type="date" id="filtroDesde" class="bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-slate-200 font-mono">
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="text-slate-400 font-semibold">Hasta :</span>
+            <input type="date" id="filtroHasta" class="bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-slate-200 font-mono">
+          </div>
+          <button id="btnActualizarBalance" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl font-bold transition-all shadow-lg shadow-emerald-600/20 flex items-center gap-2">
+            <i class="fa-solid fa-rotate"></i> Actualizar
+          </button>
+        </div>
+        <span id="contadorRegistros" class="text-xs font-mono bg-emerald-500/10 text-emerald-400 px-3 py-1.5 rounded-lg border border-emerald-500/20">Cant : 0</span>
+      </div>
+
+      <!-- Tabla de Balance -->
+      <div class="flex-1 bg-slate-900 border border-slate-800 rounded-2xl shadow-xl overflow-hidden flex flex-col min-h-[320px]">
+        <div class="flex-1 overflow-auto">
+          <table class="w-full text-left text-xs whitespace-nowrap">
+            <thead class="bg-slate-950 text-slate-400 uppercase font-semibold sticky top-0 border-b border-slate-800 z-10">
+              <tr>
+                <th class="p-3.5 border-r border-slate-800/50">Cuenta</th>
+                <th class="p-3.5 border-r border-slate-800/50">Nombre Cuenta</th>
+                <th class="p-3.5 border-r border-slate-800/50">Suma Debe</th>
+                <th class="p-3.5 border-r border-slate-800/50">Suma Haber</th>
+                <th class="p-3.5 border-r border-slate-800/50">Saldo Deudor</th>
+                <th class="p-3.5">Saldo Acreedor</th>
+              </tr>
+            </thead>
+            <tbody id="tablaBalanceBody" class="divide-y divide-slate-800/60"></tbody>
+          </table>
+        </div>
+
+        <!-- Pie con Totales y Diferencia -->
+        <div class="p-4 bg-slate-900 border-t border-slate-800 flex flex-wrap items-center justify-between gap-4 text-xs font-mono">
+          <div class="flex items-center gap-6">
+            <div><span class="text-slate-400">Total Debe:</span> <span id="lblTotalDebe" class="text-emerald-400 font-bold">0.00</span></div>
+            <div><span class="text-slate-400">Total Haber:</span> <span id="lblTotalHaber" class="text-amber-400 font-bold">0.00</span></div>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="text-slate-400">Diferencia:</span>
+            <span id="lblDiferencia" class="bg-emerald-500/10 text-emerald-400 px-3 py-1 rounded-lg border border-emerald-500/20 font-bold">0</span>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Modal Alerta -->
+  <div id="modalAlerta" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-slate-900 border border-slate-800 rounded-2xl max-w-sm w-full p-6 shadow-2xl text-center space-y-4">
+      <p id="textoAlertaModal" class="text-xs text-slate-300">Aviso</p>
+      <button id="btnCerrarAlerta" class="w-full py-2 bg-emerald-600 text-white rounded-xl text-xs font-bold">Aceptar</button>
+    </div>
+  </div>
+
+  <script type="module">
+    import { renderAside } from '../../../js/components/aside.js';
+    renderAside('contabilidad');
+
+    import CONFIG from '../../../js/config/config.js';
+    // Cambia el título de la pestaña usando los datos de config.js
+    document.getElementById('site-title').innerText = `${CONFIG.SYSTEM_NAME.split(' ')[0]} - Balance comprobación`;
+
+  </script>
+  <script type="module" src="../../../js/contabilidad/balance.js"></script>
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title id="site-title">Cargando...</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <script src="../../js/config/config.js"></script>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="../../css/style.css">
+</head>
+<body class="bg-slate-950 text-slate-100 flex h-screen transition-colors">
+  
+  <div id="app-aside"></div>
+
+  <div class="flex-1 flex flex-col min-w-0 overflow-hidden">
+  
+    <main class="flex-1 overflow-y-auto p-4 md:p-8 flex flex-col gap-6 bg-slate-950/40">
+      
+      <div class="border-b border-slate-800 pb-4">
+        <h2 class="text-sm font-bold uppercase tracking-wider text-slate-300 flex items-center gap-2">
+          <i class="fa-solid fa-shield-halved text-rose-500"></i> Menú Administración
+        </h2>
+      </div>
+
+      <div class="grid h-full items-center justify-center grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto py-6">
+        
+        <!-- Auditoría -->
+        <a href="./auditoria/auditoria.html" class="bg-slate-900  border border-slate-800 hover:border-rose-500/50 p-12 rounded-3xl shadow-xl flex flex-col items-center justify-center gap-4 group transition-all">
+          <div class="w-24 h-24 rounded-full bg-slate-950 border border-slate-800 flex items-center justify-center text-rose-400 text-3xl group-hover:scale-110 transition-transform">
+            <i class="fa-solid fa-video"></i>
+          </div>
+          <span class="font-bold text-slate-200 group-hover:text-rose-400 text-sm transition-colors">Auditoría</span>
+        </a>
+
+        <!-- Empleados -->
+        <a href="./empleados/empleados.html" class="bg-slate-900 border border-slate-800 hover:border-blue-500/50 p-12 rounded-3xl shadow-xl flex flex-col items-center justify-center gap-4 group transition-all">
+          <div class="w-24 h-24 rounded-full bg-slate-950 border border-slate-800 flex items-center justify-center text-blue-400 text-3xl group-hover:scale-110 transition-transform">
+            <i class="fa-solid fa-users"></i>
+          </div>
+          <span class="font-bold text-slate-200 group-hover:text-blue-400 text-sm transition-colors">Empleados</span>
+        </a>
+
+        <!-- Usuarios -->
+        <a href="./usuarios/usuarios.html" class="bg-slate-900 border border-slate-800 hover:border-purple-500/50 p-12 rounded-3xl shadow-xl flex flex-col items-center justify-center gap-4 group transition-all">
+          <div class="w-24 h-24 rounded-full bg-slate-950 border border-slate-800 flex items-center justify-center text-purple-400 text-3xl group-hover:scale-110 transition-transform">
+            <i class="fa-solid fa-user-shield"></i>
+          </div>
+          <span class="font-bold text-slate-200 group-hover:text-purple-400 text-sm transition-colors">Usuarios</span>
+        </a>
+
+      </div>
+    </main>
+  </div>
+
+  <script type="module">
+    import { renderAside } from '../../js/components/aside.js';
+    renderAside('admin');
+
+    import CONFIG from '../../js/config/config.js';
+    // Cambia el título de la pestaña usando los datos de config.js
+    document.getElementById('site-title').innerText = `${CONFIG.SYSTEM_NAME.split(' ')[0]} - Administración`;
+
+  </script>
+</body>
+</html>

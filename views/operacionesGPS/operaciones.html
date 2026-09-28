@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title id="site-title">Cargando...</title>
+
+  <script src="../../js/config/config.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="../../css/style.css">
+</head>
+<body class="bg-slate-950 text-slate-100 flex h-screen transition-colors">
+  
+  <div id="app-aside"></div>
+
+  <div class="flex-1 flex flex-col min-w-0 overflow-hidden">
+
+    <main class="flex-1 overflow-y-auto p-4 md:p-8 flex flex-col gap-6 bg-slate-950/40">
+      
+      <div class="border-b border-slate-800 pb-4">
+        <h2 class="text-sm font-bold uppercase tracking-wider text-slate-300 flex items-center gap-2">
+          <i class="fa-solid fa-gears text-blue-500"></i> Menú Operaciones GPS
+        </h2>
+      </div>
+
+      <div class="grid grid-cols-1 h-full justify-center items-center sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto py-6">
+        
+        <!-- Clientes -->
+        <a href="./clientes/clientes.html" class="bg-slate-900 border border-slate-800 hover:border-blue-500/50 p-6 pl-10 pr-10 rounded-3xl shadow-xl flex flex-col items-center justify-center gap-4 group transition-all">
+          <div class="w-24 h-24 rounded-full bg-slate-950 border border-slate-800 flex items-center justify-center text-blue-400 text-3xl group-hover:scale-110 transition-transform">
+            <i class="fa-solid fa-user"></i>
+          </div>
+          <span class="font-bold text-slate-200 group-hover:text-blue-400 text-sm transition-colors">Clientes</span>
+        </a>
+
+        <!-- Equipos -->
+        <a href="./equipos/equipos.html" class="bg-slate-900 border border-slate-800 hover:border-emerald-500/50 p-6 pl-10 pr-10 rounded-3xl shadow-xl flex flex-col items-center justify-center gap-4 group transition-all">
+          <div class="w-24 h-24 rounded-full bg-slate-950 border border-slate-800 flex items-center justify-center text-emerald-400 text-3xl group-hover:scale-110 transition-transform">
+            <i class="fa-solid fa-microchip"></i>
+          </div>
+          <span class="font-bold text-slate-200 group-hover:text-emerald-400 text-sm transition-colors">Equipos</span>
+        </a>
+
+        <!-- Líneas -->
+        <a href="./lineas/lineas.html" class="bg-slate-900 border border-slate-800 hover:border-rose-500/50 p-6 pl-10 pr-10 rounded-3xl shadow-xl flex flex-col items-center justify-center gap-4 group transition-all">
+          <div class="w-24 h-24 rounded-full bg-slate-950 border border-slate-800 flex items-center justify-center text-rose-400 text-3xl group-hover:scale-110 transition-transform">
+            <i class="fa-solid fa-sim-card"></i>
+          </div>
+          <span class="font-bold text-slate-200 group-hover:text-rose-400 text-sm transition-colors">Lineas</span>
+        </a>
+
+        <!-- Monitor -->
+        <a href="./monitor/monitor.html" class="bg-slate-900 border border-slate-800 hover:border-indigo-500/50 p-6 pl-10 pr-10 rounded-3xl shadow-xl flex flex-col items-center justify-center gap-4 group transition-all">
+          <div class="w-24 h-24 rounded-full bg-slate-950 border border-slate-800 flex items-center justify-center text-indigo-400 text-3xl group-hover:scale-110 transition-transform">
+            <i class="fa-solid fa-globe"></i>
+          </div>
+          <span class="font-bold text-slate-200 group-hover:text-indigo-400 text-sm transition-colors">Monitor</span>
+        </a>
+
+        <!-- Vehículos -->
+        <a href="./vehiculos/vehiculos.html" class="bg-slate-900 border border-slate-800 hover:border-cyan-500/50 p-6 pl-10 pr-10 rounded-3xl shadow-xl flex flex-col items-center justify-center gap-4 group transition-all">
+          <div class="w-24 h-24 rounded-full bg-slate-950 border border-slate-800 flex items-center justify-center text-cyan-400 text-3xl group-hover:scale-110 transition-transform">
+            <i class="fa-solid fa-car"></i>
+          </div>
+          <span class="font-bold text-slate-200 group-hover:text-cyan-400 text-sm transition-colors">Vehículos</span>
+        </a>
+
+        <!-- Vendedor -->
+        <a href="./vendedores/vendedores.html" class="bg-slate-900 border border-slate-800 hover:border-purple-500/50 p-6 pl-10 pr-10 rounded-3xl shadow-xl flex flex-col items-center justify-center gap-4 group transition-all">
+          <div class="w-24 h-24 rounded-full bg-slate-950 border border-slate-800 flex items-center justify-center text-purple-400 text-3xl group-hover:scale-110 transition-transform">
+            <i class="fa-solid fa-id-card"></i>
+          </div>
+          <span class="font-bold text-slate-200 group-hover:text-purple-400 text-sm transition-colors">Vendedor</span>
+        </a>
+
+      </div>
+    </main>
+  </div>
+
+  <script type="module">
+    import { renderAside } from '../../js/components/aside.js';
+    renderAside('operaciones');
+
+    import CONFIG from '../../js/config/config.js';
+    // Cambia el título de la pestaña usando los datos de config.js
+    document.getElementById('site-title').innerText = `${CONFIG.SYSTEM_NAME.split(' ')[0]} - Operaciones`;
+
+  </script>
+</body>
+</html>

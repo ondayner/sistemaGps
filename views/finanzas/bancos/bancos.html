@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title id="site-title">Cargando...</title>
+
+  <script src="../../../js/config/config.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="../../../css/style.css">
+</head>
+<body class="bg-slate-950 text-slate-100 flex h-screen transition-colors">
+  
+  <div id="app-aside"></div>
+
+  <div class="flex-1 flex flex-col min-w-0 overflow-hidden">
+
+    <main class="flex-1 overflow-y-auto p-4 md:p-6 flex flex-col gap-4 bg-slate-950/40">
+      
+      <!-- Filtros -->
+      <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4 shadow-lg flex flex-col gap-4">
+        <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+          <h2 class="text-xs font-bold uppercase tracking-wider text-slate-400 flex items-center gap-2">
+            <i class="fa-solid fa-building-columns text-blue-500"></i> Catálogo de Bancos y Cuentas
+          </h2>
+          <span id="contadorRegistros" class="text-xs font-mono bg-blue-500/10 text-blue-400 px-2.5 py-1 rounded-lg border border-blue-500/20">Cant : 0</span>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs items-end">
+          <div>
+            <label class="block text-slate-400 mb-1 font-semibold">Buscar en :</label>
+            <select id="filtroCampo" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-slate-200 focus:outline-none focus:border-blue-500 font-semibold">
+              <option value="codigo">CODIGO</option>
+              <option value="banco">BANCO</option>
+              <option value="observacion">OBSERVACION</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-slate-400 mb-1 font-semibold">Buscador :</label>
+            <div class="relative">
+              <span class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-slate-500"><i class="fa-solid fa-magnifying-glass"></i></span>
+              <input type="text" id="inputBuscador" placeholder="Filtrar..." class="w-full bg-slate-950 border border-slate-800 rounded-xl pl-9 pr-3 py-2 text-slate-200 focus:outline-none focus:border-blue-500">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tabla -->
+      <div class="flex-1 bg-slate-900 border border-slate-800 rounded-2xl shadow-xl overflow-hidden flex flex-col min-h-[320px]">
+        <div class="flex-1 overflow-auto">
+          <table class="w-full text-left text-xs whitespace-nowrap">
+            <thead class="bg-slate-950 text-slate-400 uppercase font-semibold sticky top-0 border-b border-slate-800 z-10">
+              <tr>
+                <th class="p-3.5 border-r border-slate-800/50">SECUENCIA</th>
+                <th class="p-3.5 border-r border-slate-800/50">CODIGO</th>
+                <th class="p-3.5 border-r border-slate-800/50">BANCO</th>
+                <th class="p-3.5">OBSERVACION</th>
+              </tr>
+            </thead>
+            <tbody id="tablaBancosBody" class="divide-y divide-slate-800/60"></tbody>
+          </table>
+        </div>
+
+        <div class="p-3 bg-slate-900 border-t border-slate-800 flex flex-wrap items-center justify-between gap-2">
+          <div class="flex flex-wrap items-center gap-2">
+            <button id="btnAbrirAgregar" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-semibold text-xs transition-all flex items-center gap-2"><i class="fa-solid fa-plus"></i> Agregar</button>
+            <button id="btnAbrirEditar" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-xl font-semibold text-xs transition-all flex items-center gap-2 border border-slate-700"><i class="fa-solid fa-pen-to-square"></i> Editar</button>
+            <button id="btnEliminarBanco" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-rose-400 rounded-xl font-semibold text-xs transition-all flex items-center gap-2 border border-slate-700"><i class="fa-solid fa-trash"></i> Eliminar</button>
+          </div>
+          <div class="px-4 py-1.5 bg-slate-950 border border-slate-800 rounded-xl text-center text-xs">
+            <span class="text-slate-500 block text-[9px] uppercase font-bold">Bancos Total</span><span id="txtTotalBancos" class="font-bold text-white">0</span>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Modal Formulario Banco / Cuenta -->
+  <div id="modalBanco" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-slate-900 border border-slate-800 rounded-2xl max-w-md w-full p-6 shadow-2xl flex flex-col text-xs">
+      <div class="flex items-center justify-between pb-3 border-b border-slate-800 mb-4">
+        <h3 id="modalTitulo" class="font-bold text-white text-sm flex items-center gap-2"><i class="fa-solid fa-building-columns text-blue-500"></i> Registrar Cuenta Real</h3>
+        <button id="btnCerrarModal" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
+      </div>
+      <form id="formBanco" class="space-y-4">
+        <div>
+          <label class="block text-slate-400 mb-1 font-semibold">Banco / Plataforma :</label>
+          <input type="text" id="bancoNombre" required placeholder="Ej: BANCO DE VENEZUELA, ZINLI, PAYPAL" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-slate-200 focus:outline-none focus:border-blue-500 uppercase font-bold">
+        </div>
+        <div>
+          <label class="block text-slate-400 mb-1 font-semibold">Número de Cuenta / Teléfono / Correo :</label>
+          <input type="text" id="bancoCodigo" required placeholder="Ej: 0102XXXXXXXXXXXX / 0414XXXXXXX / correo@domain.com" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-slate-200 focus:outline-none focus:border-blue-500 font-mono">
+        </div>
+        <div>
+          <label class="block text-slate-400 mb-1 font-semibold">Titular, Cédula / RIF y Detalles :</label>
+          <textarea id="bancoObservacion" rows="3" placeholder="Ej: Titular: Inversiones Galax C.A. - RIF: J-12345678-9 - Correo asociado..." class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-slate-200 focus:outline-none focus:border-blue-500 resize-none"></textarea>
+        </div>
+        <div class="flex justify-end gap-2 pt-3 border-t border-slate-800">
+          <button type="button" id="btnCancelarModal" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-xl font-semibold transition-all">Cancelar</button>
+          <button type="submit" class="px-5 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-bold shadow-lg shadow-blue-600/20 transition-all flex items-center gap-2"><i class="fa-solid fa-save"></i> Guardar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script type="module">
+    import { renderAside } from '../../../js/components/aside.js';
+    renderAside('finanzas');
+
+    import CONFIG from '../../../js/config/config.js';
+    // Cambia el título de la pestaña usando los datos de config.js
+    document.getElementById('site-title').innerText = `${CONFIG.SYSTEM_NAME.split(' ')[0]} - Bancos`;
+
+  </script>
+  <script type="module" src="../../../js/finanzas/bancos.js"></script>
+</body>
+</html>
