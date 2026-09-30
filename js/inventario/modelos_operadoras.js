@@ -1,6 +1,6 @@
 import { supabase } from '../supabaseClient.js';
-import CONFIG from '../../../js/config/config.js';
-import { mostrarAlerta, mostrarConfirmacion } from '../../../js/components/alertEliminar.js';
+import CONFIG from '../config/config.js';
+import { mostrarAlerta, mostrarConfirmacion } from '../components/alertEliminar.js';
 
 document.addEventListener('DOMContentLoaded', () => {
   cargarModelos();
