@@ -1,6 +1,6 @@
 import { supabase } from '../supabaseClient.js';
-import CONFIG from '../../../js/config/config.js'; // Ajusta la ruta según la profundidad de tu carpeta
-import { mostrarAlerta, mostrarConfirmacion } from '../../../js/components/alertEliminar.js';
+import CONFIG from '../config/config.js'; // Ajusta la ruta según la profundidad de tu carpeta
+import { mostrarAlerta, mostrarConfirmacion } from '../components/alertEliminar.js';
 
 let bancosGlobal = [];
 let bancoSeleccionadoId = null;
