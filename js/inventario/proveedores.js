@@ -1,6 +1,7 @@
 import { supabase } from '../supabaseClient.js';
 import CONFIG from '../config/config.js';
 import { mostrarAlerta, mostrarConfirmacion } from '../components/alertEliminar.js';
+//listo
 
 let proveedoresGlobal = [];
 let proveedorSeleccionadoId = null;
